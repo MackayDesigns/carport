@@ -37,3 +37,4 @@ deploy:
   on:
     repo: MackayDesigns/carport
   local_dir: dist
+  skip_cleanup: true
