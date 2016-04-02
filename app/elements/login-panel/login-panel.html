@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html" />
 <link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html" />
 <link rel="import" href="../../bower_components/paper-button/paper-button.html" />
-<link rel="import" href="../../bower_components/paper-input/paper-input.html"  />
+<link rel="import" href="../../bower_components/paper-input/paper-input.html" />
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html" />
 <dom-module id="login-panel">
   <template>
@@ -30,17 +30,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0;
         background: var(--primary-background-color);
       }
-
+      
       .login-header .logo {
         padding: 12px 12px 12px 12px;
         color: var(--default-primary-color);
         --iron-icon-height: 32px;
         --iron-icon-width: 32px;
       }
+      
       .login-header {
         display: flex;
         flex-direction: row;
       }
+      
       #login-button {
         margin-top: 20px;
         padding-left: 30px;
@@ -48,47 +50,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: var(--accent-color);
         color: var(--text-primary-color);
       }
+      
       .buttons {
         margin-top: 20px;
       }
+      
       span,
       input {
         @apply(--paper-font-body2);
       }
+      
       .h2 {
         color: var(--primary-text-color);
         background-color: var(--light-primary-color);
       }
-
+      
       .buttons {
         display: flex;
         flex-direction: row;
         margin-top: 16px;
       }
-
+      
       .buttons paper-button {
         width: 150px;
       }
-
+      
       .alt-button {
         background: var(--accent-color);
         color: var(--text-primary-color);
       }
-
+      
       .cancel-button {
         color: var(--accent-color);
       }
-
+      
       #error {
         margin-top: 12px;
         color: red;
       }
-
+      
       @media (min-width: 900px) {
         .wrapper {
           flex-direction: row;
         }
       }
+      
       @media (max-width: 600px) {
         #host: {
           width: 40vw;
@@ -98,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height: 50%;
         }
       }
-
+      
       @media (max-width: 500px) {
         #host: {
           width: 90vw;
@@ -116,8 +122,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="wrapper login">
       <form is="iron-form" id="form">
         <iron-a11y-keys keys="enter" on-keys-pressed="_login"></iron-a11y-keys>
-        <paper-input id="email" name="email" label="E-mail" auto-validate autofocus required value="{{email}}"></paper-input>
-        <paper-input id="password" name="password" label="Password" auto-validate type="password" required value="{{password}}"></paper-input>
+        <paper-input id="email" name="email" label="E-mail" prefix="mail" auto-validate autofocus required value="{{email}}" error-message="email is required">
+          <iron-icon icon="mail" prefix></iron-icon>
+        </paper-input>
+        <paper-input id="password" name="password" label="Password" auto-validate type="password" required value="{{password}}" error-message="password is required"></paper-input>
         <paper-checkbox name="rememberMe" value="{{rememberMe}}">Remember me</paper-checkbox>
         <div>
           <span id="error">[[errorText]]</span>
@@ -125,92 +133,92 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </form>
     </div>
     <div class="buttons buttons-layout">
-      <paper-button >Reset password...</paper-button>
+      <paper-button>Reset password...</paper-button>
       <paper-button class="cancel-button" dialog-dismiss on-tap="close">Cancel</paper-button>
-      <paper-button class="login-button" dialog-confirm raised autofocus on-tap="_login">Login</paper-button
-    </div>
+      <paper-button class="login-button" dialog-confirm raised autofocus on-tap="_login">Login</paper-button </div>
   </template>
   <script>
-  (function() {
-    'use strict';
+    (function() {
+      'use strict';
 
-    Polymer({
-      is: 'login-panel',
-      behaviors: [
-        Polymer.PaperDialogBehavior,
-        Polymer.NeonAnimationRunnerBehavior
-      ],
-      properties: {
-        loggedIn: {
-          type: Boolean,
-          notify: true
+      Polymer({
+        is: 'login-panel',
+        behaviors: [
+          Polymer.PaperDialogBehavior,
+          Polymer.NeonAnimationRunnerBehavior
+        ],
+        properties: {
+          loggedIn: {
+            type: Boolean,
+            notify: true
+          },
+          rememberMe: {
+            type: Boolean,
+            notify: true
+          },
+          email: {
+            type: String,
+            notify: true
+          },
+          password: String,
+          errorText: String,
+          user: {
+            type: Object,
+            notify: true,
+            value: function() {
+              return {
+                email: null,
+                registered: false
+              };
+            }
+          }
         },
-        rememberMe: {
-          type: Boolean,
-          notify: true
+
+        listeners: {
+          'iron-overlay-opened': 'onOpened',
+          'iron-overlay-closed': 'onClosed'
         },
-        email: {
-          type: String,
-          notify: true
+
+        onOpened: function(event) {
+          if (this.user.email) {
+            this.set('email', this.user.email);
+          }
+          if (this.email) {
+            this.$.password.focus();
+          } else {
+            this.$.email.focus();
+          }
         },
-        password: String,
-        errorText: String,
-        user: {
-          type: Object,
-          notify: true,
-          value: function() {
-            return { email: null, registered: false };
+
+        _login() {
+          var form = this.$.form;
+          if (form.validate()) {
+            var data = form.serialize();
+            console.log('login form data = ' + JSON.stringify(data))
+            this.set('loggedIn', true)
+            this.set('user.registered', true)
+            this.close()
+          } else {
+            this.errorText = 'Please fill all required fields'
+          }
+        },
+
+        onClosed: function(event) {
+          if (event.detail.confirmed) {
+            this._login();
+            console.log('logging in user: ' + JSON.stringify(this.user) + 'email = ' + this.email + 'password = ' + this.password);
+          }
+          this.set('password', null);
+          if (this.rememberMe)
+            this.set('user.email', this.email);
+          else {
+            this.set('user.email', null);
+            this.set('user.registered', false);
+            this.set('email', null);
           }
         }
-      },
 
-      listeners: {
-        'iron-overlay-opened': 'onOpened',
-        'iron-overlay-closed': 'onClosed'
-      },
-
-      onOpened: function(event) {
-        if (this.user.email) {
-          this.set('email', this.user.email);
-        }
-        if (this.email) {
-          this.$.password.focus();
-        } else {
-          this.$.email.focus();
-        }
-      },
-
-      _login() {
-        var form = this.$.form;
-        if (form.validate()) {
-          var data = form.serialize();
-          console.log('login form data = ' + JSON.stringify(data))
-          this.set('loggedIn', true)
-          this.set('user.registered', true)
-          this.close()
-        } else {
-          this.errorText = 'Please fill all required fields'
-        }
-      },
-
-      onClosed: function(event) {
-        if (event.detail.confirmed) {
-          this._login();
-          console.log('logging in user: ' + JSON.stringify(this.user)
-                      + 'email = ' + this.email
-                      + 'password = ' + this.password);
-        }
-        this.set('password', null);
-        if (this.rememberMe)
-          this.set('user.email', this.email);
-        else {
-          this.set('user.email', null);
-          this.set('user.registered', false);
-          this.set('email', null);
-        }
-      }
-
-    });
-  })();
+      });
+    })();
   </script>
 </dom-module>

@@ -26,15 +26,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app._logOut = function() {
     this.set('loggedIn', false)
+    this.set('user', {
+      email: this.email,
+      registered: this.user.registered
+    });
   }
 
   app.registerUser = function() {
+    this.switchPage("user-register");
     this.set('user.registered', true);
     console.log('registering user');
   }
 
+  app.switchPage = function(newPage) {
+    this.route = newPage;
+  }
 
-  if (window.location.port === '') {  // if production
+  if (window.location.port === '') { // if production
     // Uncomment app.baseURL below and
     // set app.baseURL to '/your-pathname/' if running from folder in production
     // app.baseUrl = '/polymer-starter-kit/';
@@ -52,13 +60,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.addEventListener('dom-change', function() {
     console.log('Our app is ready to rock!');
     if (!app.user)
-      this.set('user', {email: null})
+      this.set('user', {
+        email: null,
+        registered: false
+      })
   });
 
   app.sessionUserLoaded = function(event) {
-    console.log('user loaded: ' + JSON.stringify(event) )
+    console.log('user loaded: ' + JSON.stringify(event))
     if (this.email) {
-      this.set('user', { email: this.email, registered: false });
+      this.set('user', {
+        email: this.email,
+        registered: true
+      });
       this.set('loggedIn', false);
     }
   }
@@ -66,7 +80,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   app.noSessionUser = function(event) {
     console.log('no user: ' + JSON.stringify(event))
     this.set('email', null);
-    this.set('user', {email: null, registered: false });
+    this.set('user', {
+      email: null,
+      registered: false
+    });
     this.set('loggedIn', false);
   }
 
@@ -113,7 +130,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   app.displayLogin = function() {
-    console.log('displaying login panel');
     app.$.loginPanel.open();
   }
 

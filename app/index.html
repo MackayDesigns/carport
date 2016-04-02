@@ -61,15 +61,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body unresolved>
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
-  <style is="custom-style">
+    <style is="custom-style">
       .container {
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
+      
       .flexchild {
         @apply(--layout-flex);
       }
-  </style>
+    </style>
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
@@ -101,14 +102,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- Main Area -->
       <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
         <!-- Main Toolbar -->
-        <paper-toolbar id="mainToolbar" class="tall"  class="container">
+        <paper-toolbar id="mainToolbar" class="tall" class="container">
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
 
           <span class="flexchild"></span>
 
           <!-- Toolbar icons -->
-          <paper-button id="loginButton" name="login" hidden$="{{loggedIn}}" on-tap="displayLogin">Login</paper-button>
-          <paper-button id="registerButton" name="register" hidden$="{{!user.registered}}" on-tap="registerUser">Register</paper-button>
+          <paper-button id="loginButton" hidden$="{{loggedIn}}" on-tap="displayLogin">Login</paper-button>
+          <paper-button id="registerButton" hidden$="{{!user.registered}}" on-tap="registerUser">Register</paper-button>
           <paper-button id="logoutButton" name="logout" hidden$="{{!loggedIn}}" on-tap="_logOut">Logout</paper-button>
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
@@ -127,7 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Main Content -->
         <div class="content">
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+          <iron-pages attr-for-selected="data-route" id="pager" selected="{{route}}">
             <section data-route="home">
               <paper-material elevation="1">
                 <my-greeting></my-greeting>
@@ -139,13 +140,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
             </section>
 
+            <section data-route="user-register">
+              <register-panel></register-panel>
+            </section>
+
             <section data-route="users">
               <paper-material elevation="1">
                 <h2 class="page-title">Users</h2>
                 <p>This is the users section</p>
-                <a href$="{{baseUrl}}users/Addy">Addy</a><br>
-                <a href$="{{baseUrl}}users/Rob">Rob</a><br>
-                <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
+                <a href$="{{baseUrl}}users/Addy">Addy</a>
+                <br>
+                <a href$="{{baseUrl}}users/Rob">Rob</a>
+                <br>
+                <a href$="{{baseUrl}}users/Chuck">Chuck</a>
+                <br>
                 <a href$="{{baseUrl}}users/Sam">Sam</a>
               </paper-material>
             </section>
@@ -173,29 +181,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-toast>
 
     <!-- Uncomment next block to enable Service Worker support (1/2) -->
-    <paper-toast id="caching-complete"
-                 duration="6000"
-                 text="Caching complete! This app will work offline.">
+    <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
     </paper-toast>
 
-    <login-panel id="loginPanel"
-                 email="{{email}}"
-                 user="{{user}}"
-                 logged-in="{{loggedIn}}"
-                 with-backdrop></login-panel>
+    <login-panel id="loginPanel" email="{{email}}" user="{{user}}" logged-in="{{loggedIn}}" with-backdrop></login-panel>
 
-    <iron-localstorage name="carport-email"
-                       on-iron-localstorage-load="sessionUserLoaded"
-                       on-iron-localstorage-load-empty="noSessionUser"
-                       value="{{email}}"></iron-localstorage>
+    <iron-localstorage name="carport-email" on-iron-localstorage-load="sessionUserLoaded" on-iron-localstorage-load-empty="noSessionUser" value="{{email}}"></iron-localstorage>
 
-    <platinum-sw-register auto-register
-                          clients-claim
-                          skip-waiting
-                          base-uri="bower_components/platinum-sw/bootstrap"
-                          on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="fastest"
-                         cache-config-file="cache-config.json">
+    <platinum-sw-register auto-register clients-claim skip-waiting base-uri="bower_components/platinum-sw/bootstrap" on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest" cache-config-file="cache-config.json">
       </platinum-sw-cache>
     </platinum-sw-register>
 
