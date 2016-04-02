@@ -19,6 +19,10 @@ before_script:
 - bower i
 script:
   - ./travis-runner.sh
+cache:
+  directories:
+    node_modules
+    app/bower_components
 env:
   global:
   - CXX='g++-4.8'
@@ -32,4 +36,4 @@ deploy:
   acl: public_read
   on:
     repo: MackayDesigns/carport
-  local_dir: build
+  local_dir: dist
