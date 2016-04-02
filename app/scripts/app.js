@@ -20,16 +20,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Is the user logged in?
   app.loggedIn = false;
-  app.loggedOut = true;
+  app.registered = false;
 
   // Sets app default base URL
   app.baseUrl = '/';
 
   app._logOut = function() {
     this.set('loggedIn', false)
-    this.set('loggedOut', true)
   }
 
+  app.registerUser = function() {
+    console.log('registering user');
+  }
 
 
   if (window.location.port === '') {  // if production
@@ -55,13 +57,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   app.sessionUserLoaded = function(event) {
     console.log('user loaded: ' + JSON.stringify(event) )
+    if (this.email) {
+      this.set('registered', true);
+      this.set('user', { email: this.email });
+      this.set('loggedIn', false);
+    }
   }
 
   app.noSessionUser = function(event) {
     console.log('no user: ' + JSON.stringify(event))
+    this.set('email', null);
+    this.set('registered', false)
     this.set('user', {email: null});
     this.set('loggedIn', true);
-    this.set('loggedIn', false);
   }
 
   // See https://github.com/Polymer/polymer/issues/1381

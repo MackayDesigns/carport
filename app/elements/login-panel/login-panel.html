@@ -145,15 +145,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           notify: true
         },
-        loggedOut: {
-          type: Boolean,
-          notify: true
-        },
         rememberMe: {
           type: Boolean,
           notify: true
         },
-        email: String,
+        email: {
+          type: String,
+          notify: true
+        },
         password: String,
         errorText: String,
         user: {
@@ -187,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var data = form.serialize();
           console.log('login form data = ' + JSON.stringify(data))
           this.set('loggedIn', true)
-          this.set('loggedOut', false)
+          this.set('registered', true)
           this.close()
         } else {
           this.errorText = 'Please fill all required fields'
