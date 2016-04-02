@@ -108,7 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Toolbar icons -->
           <paper-button id="loginButton" name="login" hidden$="{{loggedIn}}" on-tap="displayLogin">Login</paper-button>
-          <paper-button id="registerButton" name="register" hidden$="{{!registered}}" on-tap="registerUser">Register</paper-button>
+          <paper-button id="registerButton" name="register" hidden$="{{!user.registered}}" on-tap="registerUser">Register</paper-button>
           <paper-button id="logoutButton" name="logout" hidden$="{{!loggedIn}}" on-tap="_logOut">Logout</paper-button>
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
@@ -182,7 +182,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  email="{{email}}"
                  user="{{user}}"
                  logged-in="{{loggedIn}}"
-                 registered="{{registered}}"
                  with-backdrop></login-panel>
 
     <iron-localstorage name="carport-email"
