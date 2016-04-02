@@ -49,12 +49,16 @@ var styleTask = function(stylesPath, srcs) {
   return gulp.src(srcs.map(function(src) {
       return path.join('app', stylesPath, src);
     }))
-    .pipe($.changed(stylesPath, {extension: '.css'}))
+    .pipe($.changed(stylesPath, {
+      extension: '.css'
+    }))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/' + stylesPath))
     .pipe($.minifyCss())
     .pipe(gulp.dest(dist(stylesPath)))
-    .pipe($.size({title: stylesPath}));
+    .pipe($.size({
+      title: stylesPath
+    }));
 };
 
 var imageOptimizeTask = function(src, dest) {
@@ -64,7 +68,9 @@ var imageOptimizeTask = function(src, dest) {
       interlaced: true
     }))
     .pipe(gulp.dest(dest))
-    .pipe($.size({title: 'images'}));
+    .pipe($.size({
+      title: 'images'
+    }));
 };
 
 var optimizeHtmlTask = function(src, dest) {
@@ -171,7 +177,9 @@ gulp.task('vulcanize', function() {
       inlineScripts: true
     }))
     .pipe(gulp.dest(dist('elements')))
-    .pipe($.size({title: 'vulcanize'}));
+    .pipe($.size({
+      title: 'vulcanize'
+    }));
 });
 
 // Generate config data for the <sw-precache-cache> element.
@@ -192,8 +200,10 @@ gulp.task('cache-config', function(callback) {
     'index.html',
     './',
     'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-    '{elements,scripts,styles}/**/*.*'],
-    {cwd: dir}, function(error, files) {
+    '{elements,scripts,styles}/**/*.*'
+  ], {
+    cwd: dir
+  }, function(error, files) {
     if (error) {
       callback(error);
     } else {
@@ -272,9 +282,8 @@ gulp.task('default', ['clean'], function(cb) {
   // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
     ['ensureFiles', 'copy', 'styles'],
-    'elements',
-    ['images', 'fonts', 'html'],
-    'vulcanize', // 'cache-config',
+    'elements', ['images', 'fonts', 'html'],
+    'vulcanize', 'cache-config',
     cb);
 });
 
