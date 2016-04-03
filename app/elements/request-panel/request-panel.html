@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html" />
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html" />
 <link rel="import" href="../../bower_components/iron-form/iron-form.html" />
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html" />
 <link rel="import" href="../../bower_components/paper-button/paper-button.html" />
 <link rel="import" href="../../bower_components/paper-input/paper-input.html" />
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html" />
@@ -32,28 +33,64 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <vehical-panel></vehical-panel>
-    <div class="request-wrapper">
-      <form is="iron-form" id="assessment-form" method="post" action="/form/handler">
-        <h2>Assessment</h2>
-        <paper-input label="Odometer Reading"></paper-input>
-        <paper-dropdown-menu id="Unit">
-          <paper-menu class="dropdown-content" required>
-            <paper-item>Miles</paper-item>
-            <paper-item>Kilometers</paper-item>
-          </paper-menu>
-        </paper-dropdown-menu>
-        <paper-input label="Vehicle Condition"></paper-input>
-        <paper-dropdown-menu label="Tire Condition" id="tireCondition" class="dropdown-content">
-          <paper-menu class="dropdown-content">
-            <paper-item>Replace</paper-item>
-            <paper-item>30%</paper-item>
-            <paper-item>50%</paper-item>
-            <paper-item>75%</paper-item>
-            <paper-item>New</paper-item>
-          </paper-menu>
-        </paper-dropdown-menu>
-      </form>
+    <div class="wrapper">
+      <paper-material elevation="1">
+        <!--
+        <button class="heading" aria-expanded$="[[isExpanded(vehicleOpened)]]" aria-controls="vehicle-collapse" onclick="toggle('#vehicle-collapse')">Vehicle</button>
+        -->
+        <div on-click="toggleVehicle">
+            Vehicle...
+        </div>
+        <iron-collapse id="vehicleCollapse" tabindex="0" opened>
+          <vehicle-panel></vehicle-panel>
+        </iron-collapse>
+        <!--
+        <button class="heading" aria-expanded$="[[isExpanded(assessmentOpened)]]" aria-controls="assessment-collapse" onclick="toggle('#assessment-collapse')">Assessment</button>
+        -->
+        <div on-click="toggleAssessment">
+          Assessment...
+        </div>
+        <iron-collapse id="assessmentCollapse" tabindex="0" opened>
+          <div class="request-wrapper">
+            <form is="iron-form" id="assessment-form" method="post" action="/form/handler">
+              <h2>Assessment</h2>
+              <paper-input label="Odometer Reading"></paper-input>
+              <paper-dropdown-menu id="Unit">
+                <paper-menu class="dropdown-content" required>
+                  <paper-item>Miles</paper-item>
+                  <paper-item>Kilometers</paper-item>
+                </paper-menu>
+              </paper-dropdown-menu>
+              <paper-input label="Vehicle Condition"></paper-input>
+              <paper-dropdown-menu label="Tire Condition" id="tireCondition" class="dropdown-content">
+                <paper-menu class="dropdown-content">
+                  <paper-item>Replace</paper-item>
+                  <paper-item>30%</paper-item>
+                  <paper-item>50%</paper-item>
+                  <paper-item>75%</paper-item>
+                  <paper-item>New</paper-item>
+                </paper-menu>
+              </paper-dropdown-menu>
+              <div id="carfaxHistory">
+                <H2>Carfax Claims</H2>
+              </div>
+              <iron-collapse id="carfaxCollapse" opened>
+                <div id="carfax-claims">
+                  Carfax stuff goes here
+                </div>
+              </iron-collapse>
+              <div id="damageHistory">
+                <H2>Damages</H2>
+              </div>
+              <iron-collapse id="damageCollapse" opened>
+                <div id="damageStuff">
+                  Damages go here
+                </div>
+              </iron-collapse>
+            </form>
+          </div>
+        </iron-collapse>
+      </paper-material>
     </div>
   </template>
   <script>
@@ -69,6 +106,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'request-panel',
           notify: true
         }
+      },
+
+      toggleVehicle: function() {
+          this.toggle('vehicleCollapse');
+          //this.$.vehicleCollapse.toggle();
+      },
+
+      toggleAssessment: function() {
+        this.toggle('assessmentCollapse');
+        //this.$.assessmentCollapse.toggle();
+      },
+
+      toggle: function(selector) {
+        this.$[selector].toggle();
       }
     });
   })();
