@@ -9,12 +9,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/gold-phone-input/gold-phone-input.html" />
+<link rel="import" href="../../bower_components/gold-zip-input/gold-zip-input.html" />
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html" />
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html" />
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html" />
 <link rel="import" href="../../bower_components/iron-form/iron-form.html" />
 <link rel="import" href="../../bower_components/paper-button/paper-button.html" />
 <link rel="import" href="../../bower_components/paper-input/paper-input.html" />
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html" />
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html"  />
+
 <dom-module id="register-panel">
   <template>
     <style>
@@ -25,18 +31,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="wrapper">
       <paper-material elevation="1">
         <form is="iron-form" id="form">
-          <paper-input label="First Name" id="firstName" value="firstName" required></paper-input>
-          <paper-input label="Last Name" id="lastName" value="lastName" required></paper-input>
-          <paper-input id="email" label="E-mail" prefix="mail" auto-validate autofocus required value="{{email}}" error-message="email is required">
-            <iron-icon icon="mail" prefix></iron-icon>
-          </paper-input>
-          <paper-input label="Street Address" id="address" value="{{streetAddress}}" required></paper-input>
-          <paper-input label="City" id="city" value="{{city}}" required></paper-input>
-          <paper-input label="State/Province" id="state" value="{{state}}" required></paper-input>
-          <paper-input label="Postal Code" id="zipCode" value="{{zipCode}}" required></paper-input>
+          <paper-input         label="First Name" id="firstName" value="{{firstName}}" required auto-validate autocapitalize></paper-input>
+          <paper-input         label="Last Name" id="lastName" value="{{lastName}}" required auto-validate autocapitalize></paper-input>
+          <gold-email-input    label="E-mail" id="email" value="{{email}}" auto-validate required></gold-email-input>
+          <paper-textarea      label="Street Address" value="{{streetAddress}}" required autocapitalize></paper-textarea>
+          <paper-input         label="City" id="city" value="{{city}}" autocapitalize auto-validate></paper-input>
+          <paper-input         label="State/Province" id="state" value="{{state}}"></paper-input>
+          <gold-zip-input      label="Postal Code" id="zipCode" value="{{zipCode}}" auto-validate required></gold-zip-input>
+          <paper-dropdown-menu label="Country">
+            <paper-menu class="dropdown-content">
+              <paper-item>U.S.</paper-item>
+              <paper-item>Canada</paper-item>
+            </paper-menu>
+          </paper-dropdown-menu>
+          <gold-phone-input     label="Desk Phone" id="deskPhone" value="{{deskPhone}}"></gold-phone-input>
+          <gold-phone-input     label="Cell Phone" id="cellPhone" value="{{cellPhone}}"></gold-phone-input>
+          <div class="buttons">
+            <paper-button id="Accept" default></paper-button>
+            <paper-button id="Cancel"></paper-button>
+          </div>
         </form>
-        </<paper-material>
-    </div>
+      </<paper-material>
+  </div>
   </template>
   <script>
     (function() {
@@ -49,10 +65,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           firstName: String,
           lastName: String,
           email: String,
-          address: String,
+          streetAddress: String,
           city: String,
           state: String,
-          zipCode: String
+          zipCode: String,
+          deskPhone: String,
+          cellPhone: String
         }
       });
     })();
