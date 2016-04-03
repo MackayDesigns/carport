@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
-      
+
       .flexchild {
         @apply(--layout-flex);
       }
@@ -86,7 +86,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
-
+          <a data-route="vehicle-panel" href="{{baseUrl}}vehicle-panel">
+            <iron-icon icon="quote"></iron-icon>
+            <span>Vehicles</span>
+          </a>
+            <a data-route="request-panel" href="{{baseUrl}}request-panel">
+            <iron-icon icon="quote"></iron-icon>
+            <span>Requests</span>
+          </a>
           <a data-route="users" href="{{baseUrl}}users">
             <iron-icon icon="info"></iron-icon>
             <span>Users</span>
@@ -138,6 +145,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 <p>Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
               </paper-material>
+            </section>
+
+            <section data-route="request-panel">
+              <request-panel></request-panel>
+            </section>
+
+            <section data-route="vehicle-panel">
+              <vehicle-panel></vehicle-panel>
             </section>
 
             <section data-route="user-register">
