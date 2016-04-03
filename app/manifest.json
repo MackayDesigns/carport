@@ -36,6 +36,6 @@
       }],
   "background_color": "#3E4EB8",
   "display": "standalone",
-  "start_url": "/racer/start.html",
+  "start_url": "/index.html",
   "theme_color": "#2E3AA1"
 }
