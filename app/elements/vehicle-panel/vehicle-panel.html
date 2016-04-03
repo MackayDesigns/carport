@@ -1,0 +1,97 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/gold-phone-input/gold-phone-input.html" />
+<link rel="import" href="../../bower_components/gold-zip-input/gold-zip-input.html" />
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html" />
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html" />
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html" />
+<link rel="import" href="../../bower_components/iron-form/iron-form.html" />
+<link rel="import" href="../../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../../bower_components/paper-input/paper-input.html" />
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html" />
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html"  />
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html" />
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html"  />
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html"  />
+
+<dom-module id="vehicle-panel">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="wrapper">
+      <paper-material elevation="1">
+        <h2>Vehicle Summary</h2>
+        <form is="iron-form" id="form">
+          <paper-input         label="Vehicle ID Number (VIN)" id="vin" value="{{vin}}" required auto-validate></paper-input>
+          <paper-input         label="Make" id="make" value="{{make}}" required auto-validate></paper-input>
+          <paper-input         label="Model" id="make" value="{{model}}" required auto-validate></paper-input>
+          <paper-input         label="Trim" id="make" value="{{trim}}" required auto-validate></paper-input>
+          <paper-input         label="Exterior Color" id="exteriorColor" value="{{exteriorColor}}" required auto-validate></paper-input>
+          <paper-input         label="Interior Color" id="interiorColor" value="{{interiorColor}}" required auto-validate></paper-input>
+          <paper-checkbox      id="leather" value="{{leather}}">Leather Interior</paper-checkbox>
+          <div>Wheel Type</div><br />
+            <paper-radio-group   label="Wheel Type" id="wheelType" value="{{wheelType}}" required auto-validate>
+              <paper-radio-button name="alloy">Alloy</paper-radio-button>
+              <paper-radio-button name="chromeAlloy">Chrome Alloy</paper-radio-button>
+              <paper-radio-button name="steel">Steel</paper-radio-button>
+              <paper-radio-button name="painted">Painted</paper-radio-button>
+            </paper-radio-group>
+
+          <div>
+            Wheel diameter: <span id="wheelDiameterLabel"></span>
+          </div><br />
+          <paper-slider         id="wheelDiameter" value="{{wheelDiameter}}" min="16" max="22" value="18" pin snaps></paper-slider>
+          <paper-checkbox       value="{{sunroof}}">Sunroof</paper-checkbox>
+          <paper-checkbox       value="{{navigation}}">Navigation</paper-checkbox>
+          <paper-checkbox       value="{{backupCamera}}">Backup Camera</paper-checkbox>
+          <paper-dropdown-menu label=Lifted>
+            <paper-menu class="dropdown-content">
+              <paper-item>Level Kit</paper-item>
+              <paper-item>3"</paper-item>
+              <paper-item>6"</paper-item>
+              <paper-item>Hillbilly</paper-item>
+            </paper-menu>
+          </paper-dropdown-menu>
+          <div class="buttons">
+            <paper-button id="Accept" default></paper-button>
+            <paper-button id="Cancel"></paper-button>
+          </div>
+        </form>
+      </<paper-material>
+    </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'vehicle-panel',
+
+      properties: {
+        vin: String,
+        make: String,
+        model: String,
+        trim: String,
+        exteriorColor: String,
+        interiorColor: String,
+        leather: Boolean,
+        wheelType: String,
+        wheelDiameter: Number
+      }
+    });
+  })();
+  </script>
+</dom-module>
