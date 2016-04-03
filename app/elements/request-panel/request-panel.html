@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   <paper-item>New</paper-item>
                 </paper-menu>
               </paper-dropdown-menu>
-              <div id="carfaxHistory">
+              <div id="carfaxHistory" on-tap="toggleCarfax">
                 <H2>Carfax Claims</H2>
               </div>
               <iron-collapse id="carfaxCollapse" opened>
@@ -79,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   Carfax stuff goes here
                 </div>
               </iron-collapse>
-              <div id="damageHistory">
+              <div id="damageHistory" on-tap="toggleDamages">
                 <H2>Damages</H2>
               </div>
               <iron-collapse id="damageCollapse" opened>
@@ -116,6 +116,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       toggleAssessment: function() {
         this.toggle('assessmentCollapse');
         //this.$.assessmentCollapse.toggle();
+      },
+
+      toggleCarfax: function() {
+        this.toggle('carfaxCollapse');
+      },
+
+      toggleDamages: function() {
+        this.toggle('damageCollapse');
       },
 
       toggle: function(selector) {
