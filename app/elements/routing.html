@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // More info: https://visionmedia.github.io/page.js/
 
     // Removes end / from app.baseUrl which page.base requires for production
-    if (window.location.port === '') {  // if production
+    if (window.location.port === '') { // if production
       page.base(app.baseUrl.replace(/\/$/, ''));
     }
 
@@ -45,14 +45,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'home';
     });
 
-    page('/vehicle-panel', function() {
-      console.log('opening vehicle-panel');
-      app.route = 'vehicle-panel';
+    page('/vehicle-list', function() {
+      console.log('opening vehicle-list');
+      app.route = 'vehicle-list';
     });
 
-    page('/request-panel', function() {
+    page('/vehicle-panel/:vehicle', function(data) {
+      console.log('opening vehicle-panel');
+      app.route = 'vehicle-panel';
+      app.params = data.params;
+    });
+
+    page('/request-list', function() {
+      console.log('opening request-list');
+      app.route = 'request-list';
+    });
+
+    page('/request-panel/:request', function(data) {
       console.log('opening request-panel');
       app.route = 'request-panel';
+      app.params = data.params;
+    });
+
+    page('/offer-list', function() {
+      console.log('opening offer-list');
+      app.route = 'offer-list';
+    });
+
+    page('/offer-panel/:offer', function(data) {
+      console.log('opening offer-panel');
+      app.route = 'offer-panel';
+      app.params = data.params;
     });
 
     page('/register-user', function() {
@@ -79,7 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     // 404
     page('*', function() {
-      app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
+      app.$.toast.text = 'Can\'t find: ' + window.location.href + '. Redirected you to Home Page';
       app.$.toast.show();
       page.redirect(app.baseUrl);
     });

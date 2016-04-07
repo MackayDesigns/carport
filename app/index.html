@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
-
+      
       .flexchild {
         @apply(--layout-flex);
       }
@@ -86,13 +86,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
-          <a data-route="vehicle-panel" href="{{baseUrl}}vehicle-panel">
-            <iron-icon icon="quote"></iron-icon>
-            <span>Vehicles</span>
+          <a data-route="offer-list" href="{{baseUrl}}offer-list">
+            <iron-icon src="../../images/interface.svg"></iron-icon>
+            <span>Offers</span>
           </a>
-            <a data-route="request-panel" href="{{baseUrl}}request-panel">
-            <iron-icon icon="quote"></iron-icon>
+          <a data-route="request-panel" href="{{baseUrl}}request-list">
+            <iron-icon src="../../images/sign.svg"></iron-icon>
             <span>Requests</span>
+          </a>
+          <a data-route="vehicle-panel" href="{{baseUrl}}vehicle-list">
+            <iron-icon src="../../images/transport.svg"></iron-icon>
+            <span>Vehicles</span>
           </a>
           <a data-route="users" href="{{baseUrl}}users">
             <iron-icon icon="info"></iron-icon>
@@ -130,7 +134,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="bottom bottom-container">
             <div class="bottom-title">Wholesale Auto Brokerage</div>
           </div>
-          <paper-fab></paper-fab>
         </paper-toolbar>
 
         <!-- Main Content -->
@@ -147,8 +150,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
             </section>
 
+            <section data-route="offer-list">
+              <offer-list></offer-list>
+            </section>
+
+            <section data-route="request-list">
+              <request-list></request-list>
+            </section>
+
             <section data-route="request-panel">
               <request-panel></request-panel>
+            </section>
+
+            <section data-route="vehicle-list">
+              <vehicle-list></vehicle-list>
             </section>
 
             <section data-route="vehicle-panel">
