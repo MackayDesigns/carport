@@ -24,21 +24,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="register-panel">
   <template>
     <style>
-      :host {
-        display: block;
-      }
+    :host {
+      display: block;
+      padding: 12px 12px 18px 18px;
+      border: 1px solid #ccc;
+      top: 0;
+      margin: 0;
+      background: var(--primary-background-color);
+    }
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      margin-top: 16px;
+    }
+    .buttons paper-button {
+      width: 150px;
+    }
+    .alt-button {
+      background: var(--accent-color);
+      color: var(--text-primary-color);
+    }
+    .cancel-button {
+      color: var(--accent-color);
+    }
     </style>
     <div class="wrapper">
       <paper-material elevation="1">
         <form is="iron-form" id="form">
-          <paper-input         label="First Name" id="firstName" value="{{firstName}}" required auto-validate autocapitalize></paper-input>
+          <paper-input         label="First Name" id="firstName" value="{{firstName}}" required autofocus auto-validate autocapitalize></paper-input>
           <paper-input         label="Last Name" id="lastName" value="{{lastName}}" required auto-validate autocapitalize></paper-input>
           <gold-email-input    label="E-mail" id="email" value="{{email}}" auto-validate required></gold-email-input>
-          <paper-textarea      label="Street Address" value="{{streetAddress}}" required autocapitalize></paper-textarea>
-          <paper-input         label="City" id="city" value="{{city}}" autocapitalize auto-validate></paper-input>
-          <paper-input         label="State/Province" id="state" value="{{state}}"></paper-input>
+          <paper-textarea      label="Street Address" value="{{streetAddress}}" maxRows="2" auto-validate autocapitalize></paper-textarea>
+          <paper-input         label="City" id="city" value="{{city}}" required autocapitalize auto-validate></paper-input>
+          <paper-input         label="State/Province" id="state" value="{{state}}" required></paper-input>
           <gold-zip-input      label="Postal Code" id="zipCode" value="{{zipCode}}" auto-validate required></gold-zip-input>
-          <paper-dropdown-menu label="Country">
+          <paper-dropdown-menu label="Country" required>
             <paper-menu class="dropdown-content">
               <paper-item>U.S.</paper-item>
               <paper-item>Canada</paper-item>
@@ -46,11 +66,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-dropdown-menu>
           <gold-phone-input     label="Desk Phone" id="deskPhone" value="{{deskPhone}}"></gold-phone-input>
           <gold-phone-input     label="Cell Phone" id="cellPhone" value="{{cellPhone}}"></gold-phone-input>
-          <div class="buttons">
-            <paper-button id="Accept" default></paper-button>
-            <paper-button id="Cancel"></paper-button>
-          </div>
+          <paper-input label="Password" id="password" value="{{password}}" required password auto-validate></paper-input>
+          <paper-input label="Confirm Password" id="password" value="{{confirmPassword}}" required password auto-validate></paper-input>
         </form>
+        <div class="buttons">
+            <paper-button id="Accept" default raised>Accept</paper-button>
+            <paper-button id="Cancel">Cancel</paper-button>
+        </div>
       </<paper-material>
   </div>
   </template>

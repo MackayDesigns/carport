@@ -17,7 +17,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <!-- main panel -->
+      <div class="content">
+        <template is="dom-repeat" items="{{requests}}">
+          <a href="#/detail/{{item.name}}" class="card-container">
+            <paper-card image="{{request.vehicle.imageUrl}}">
+              <div class="card-content">
+                <h2>{{request.year}} {{request.make}} {{request.model}}</h2>
+              </div>
+            </paper-card>
+          </a><!-- No empty text node
+        --></template>
+      </div>
+    <paper-fab icon="app:create" on-tap="createRequest"></paper-fab>
+    <core-
   </template>
   <script>
   (function() {
@@ -27,13 +40,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'request-list',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'request-list',
-          notify: true
-        }
+        requests: object
+      },
+
+      createRequest: function() {
+      },
+
+      openRequest: function() {
+
       }
+
     });
   })();
+
+
   </script>
 </dom-module>

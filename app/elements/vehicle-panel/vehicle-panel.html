@@ -41,7 +41,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input         label="Trim" id="make" value="{{trim}}" required auto-validate></paper-input>
           <paper-input         label="Exterior Color" id="exteriorColor" value="{{exteriorColor}}" required auto-validate></paper-input>
           <paper-input         label="Interior Color" id="interiorColor" value="{{interiorColor}}" required auto-validate></paper-input>
-          <paper-checkbox      id="leather" value="{{leather}}">Leather Interior</paper-checkbox>
           <div>Wheel Type</div><br />
             <paper-radio-group   label="Wheel Type" id="wheelType" value="{{wheelType}}" required auto-validate>
               <paper-radio-button name="alloy">Alloy</paper-radio-button>
@@ -54,10 +53,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             Wheel diameter: <span id="wheelDiameterLabel"></span>
           </div><br />
           <paper-slider         id="wheelDiameter" value="{{wheelDiameter}}" min="16" max="22" value="18" pin snaps></paper-slider>
+          <div>
+            Options
+          </div>
+          <paper-checkbox       id="leather" value="{{leather}}">Leather Interior</paper-checkbox>
           <paper-checkbox       value="{{sunroof}}">Sunroof</paper-checkbox>
           <paper-checkbox       value="{{navigation}}">Navigation</paper-checkbox>
           <paper-checkbox       value="{{backupCamera}}">Backup Camera</paper-checkbox>
-          <paper-dropdown-menu label=Lifted>
+          <paper-dropdown-menu label=Lift>
             <paper-menu class="dropdown-content">
               <paper-item>Level Kit</paper-item>
               <paper-item>3"</paper-item>
