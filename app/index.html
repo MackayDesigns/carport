@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--layout-horizontal);
         @apply(--layout-wrap);
       }
-      
+
       .flexchild {
         @apply(--layout-flex);
       }
@@ -86,6 +86,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
+            <a data-route="register-panel" href="{{baseUrl}}register-panel" hidden$="{{!user.registered}}">
+              <iron-icon src="../../images/symbol.svg"></iron-icon>
+              <span>Sign up</span>
+            </a>
           <a data-route="offer-list" href="{{baseUrl}}offer-list">
             <iron-icon src="../../images/interface.svg"></iron-icon>
             <span>Offers</span>
@@ -120,7 +124,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Toolbar icons -->
           <paper-button id="loginButton" hidden$="{{loggedIn}}" on-tap="displayLogin">Login</paper-button>
-          <paper-button id="registerButton" hidden$="{{!user.registered}}" on-tap="registerUser">Register</paper-button>
           <paper-button id="logoutButton" name="logout" hidden$="{{!loggedIn}}" on-tap="_logOut">Logout</paper-button>
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
@@ -170,7 +173,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <vehicle-panel></vehicle-panel>
             </section>
 
-            <section data-route="user-register">
+            <section data-route="register-panel">
               <register-panel></register-panel>
             </section>
 
